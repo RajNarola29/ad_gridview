@@ -42,7 +42,7 @@ class _HomepageState extends State<Homepage> {
         itemMainAspectRatio: 1 / 1,
         adWidget: Container(
           height: 300,
-          color: Colors.yellow,
+          color: Colors.blue,
           child: const Center(
               child: Text(
             "Native Ad",
