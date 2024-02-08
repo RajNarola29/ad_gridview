@@ -41,7 +41,7 @@ class _HomepageState extends State<Homepage> {
         adIndex: 1,
         itemMainAspectRatio: 1 / 1,
         adWidget: Container(
-          height: 300,
+          height: 301,
           color: Colors.blue,
           child: const Center(
               child: Text(
