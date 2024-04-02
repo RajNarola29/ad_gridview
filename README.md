@@ -1,16 +1,17 @@
 # ad_gridview
 
-A flutter widget to easily show Native Ad or any other Widget in Between a GridView.
+A Flutter Widget to easily show Native Ad or any other Widget in between a GridView.
 
 
 ## Features
 
-- Easily insert Native Ad to GridView
-- Easily insert any Widget to GridView
+- Seamlessly integrate Native Advertisements into your GridView with a few simple clicks.
+- Effortlessly incorporate any Widget of your choice into your GridView.
+- Add Widgets to your GridView layout effortlessly, whether it's a single instance or multiple instances with just a few straightforward steps.
 
 ## Getting started
 
-To use this package, add hash_cached_image as a dependency in your pubspec.yaml file.
+To use this package, add ad_gridview as a dependency in your pubspec.yaml file.
 ```
 dependencies:
   ...
