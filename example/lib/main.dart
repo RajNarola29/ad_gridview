@@ -29,19 +29,21 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  List list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("AdGridView Homepage")),
       body: AdGridView(
-        crossAxisCount: 2,
+        crossAxisCount: 4,
         itemCount: list.length,
         adIndex: 1,
+        adGridViewType: AdGridViewType.once,
         itemMainAspectRatio: 1 / 1,
         adWidget: Container(
-          height: 301,
+          height: 250,
+          margin: const EdgeInsets.symmetric(horizontal: 5),
           color: Colors.blue,
           child: const Center(
               child: Text(

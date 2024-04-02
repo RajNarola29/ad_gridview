@@ -9,3 +9,7 @@
 ## 0.0.3
 
 * Added itemMainAspectRatio
+
+## 0.0.4
+
+* Added AdGridView Types 
