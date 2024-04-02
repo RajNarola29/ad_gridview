@@ -25,14 +25,15 @@ import 'package:ad_gridview/ad_gridview.dart';
 
 ```dart
     AdGridView(crossAxisCount: crossAxisCount,
-itemCount: itemCount,
-adIndex: adIndex,
-adWidget: adWidget,
-itemWidget: itemWidget)
+                  itemCount: itemCount,
+                  adIndex: adIndex,
+                  adWidget: adWidget,
+                  itemWidget: itemWidget)
 ```
 
 ### **Example**
 
-![Image example][image_example]
-<!-- Links -->
-[image_example]: https://raw.githubusercontent.com/RajNarola29/ad_gridview/main/image/example_image.png
+<p float="left">
+ <img src="https://raw.githubusercontent.com/RajNarola29/ad_gridview/main/image/example_image1.png" width=20% height=20%/>
+ <img src="https://raw.githubusercontent.com/RajNarola29/ad_gridview/main/image/example_image2.png" width=20% height=20%/>
+</p>
