@@ -3,12 +3,38 @@ library ad_gridview;
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-enum AdGridViewType { once, repeated }
+/// A widget that displays a grid view with advertisements at specific intervals.
+///
+/// The [AdGridView] widget is designed to display a grid view of items with advertisements inserted
+/// at regular intervals or custom positions. It supports three types of grid layouts: [AdGridViewType.once],
+/// [AdGridViewType.repeated], and [AdGridViewType.custom].
+enum AdGridViewType { once, repeated, custom }
 
+///
+/// The [padding], [physics], [controller], [customAdIndex], [itemMainAspectRatio] parameters
+/// allow further customization of the grid view.
 class AdGridView extends StatelessWidget {
+  /// Creates a [AdGridView] widget.
+  ///
+  /// The [crossAxisCount] parameter specifies the number of items in each row.
+  ///
+  /// The [itemCount] parameter specifies the total number of items in the grid.
+  ///
+  /// The [adIndex] parameter specifies the position where advertisements should be inserted.
+  ///
+  /// The [adWidget] parameter is the widget to be displayed as an advertisement.
+  ///
+  /// The [itemWidget] parameter is a callback function that builds the widgets for grid items.
+  ///
+  /// The [adGridViewType] parameter specifies the type of grid layout to use:
+  ///   - [AdGridViewType.once] adds a single advertisement at the specified index.
+  ///   - [AdGridViewType.repeated] adds advertisements at regular intervals.
+  ///   - [AdGridViewType.custom] allows customizing the positions of advertisements.
   const AdGridView({
     this.padding,
     this.physics,
+    this.controller,
+    this.customAdIndex = const [],
     this.itemMainAspectRatio = 1,
     required this.crossAxisCount,
     required this.itemCount,
@@ -16,9 +42,11 @@ class AdGridView extends StatelessWidget {
     required this.adWidget,
     required this.itemWidget,
     this.adGridViewType = AdGridViewType.once,
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
+  final List customAdIndex;
+  final ScrollController? controller;
   final AdGridViewType adGridViewType;
   final EdgeInsetsGeometry? padding;
   final ScrollPhysics? physics;
@@ -39,20 +67,40 @@ class AdGridView extends StatelessWidget {
       _itemCount = itemCount + 1;
     }
 
-    /// for Repeated
     List indexList = [];
-    int j = 0;
-    for (int i = 0; i < itemCount; i++) {
-      j++;
-      indexList.add(i);
-      if (j == adIndex * crossAxisCount) {
-        indexList.add("ad");
-        j = 0;
+    if (AdGridViewType.repeated == adGridViewType) {
+      /// for Repeated
+      int j = 0;
+      for (int i = 0; i < itemCount; i++) {
+        j++;
+        indexList.add(i);
+        if (j == adIndex * crossAxisCount) {
+          indexList.add("ad");
+          j = 0;
+        }
+      }
+    } else if (AdGridViewType.custom == adGridViewType) {
+      /// for Custom
+      if (customAdIndex.isEmpty) {
+        throw Exception('You are using AdGridViewType.custom so provide a List<index> in customAdIndex parameter');
+      }
+      List _customAdIndex = customAdIndex;
+      int j = 0;
+      for (int i = 0; i < itemCount; i++) {
+        if (i % crossAxisCount == 0) {
+          j = i ~/ crossAxisCount;
+          if (_customAdIndex.contains(j)) {
+            _customAdIndex.remove(j);
+            indexList.add("ad");
+          }
+        }
+        indexList.add(i);
       }
     }
 
     return AdGridViewType.once == adGridViewType
         ? SingleChildScrollView(
+            controller: controller,
             physics: physics,
             padding: padding,
             child: StaggeredGrid.count(
@@ -61,22 +109,18 @@ class AdGridView extends StatelessWidget {
                 _itemCount,
                 (index) {
                   return index == (crossAxisCount * adIndex)
-                      ? StaggeredGridTile.fit(
-                          crossAxisCellCount: crossAxisCount, child: adWidget)
+                      ? StaggeredGridTile.fit(crossAxisCellCount: crossAxisCount, child: adWidget)
                       : StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: itemMainAspectRatio! * 1,
-                          child: itemWidget(
-                              context,
-                              index < (crossAxisCount * adIndex)
-                                  ? index
-                                  : (index - 1)),
+                          child: itemWidget(context, index < (crossAxisCount * adIndex) ? index : (index - 1)),
                         );
                 },
               ),
             ),
           )
         : SingleChildScrollView(
+            controller: controller,
             physics: physics,
             padding: padding,
             child: StaggeredGrid.count(
@@ -85,8 +129,7 @@ class AdGridView extends StatelessWidget {
                 indexList.length,
                 (index) {
                   return indexList[index] == "ad"
-                      ? StaggeredGridTile.fit(
-                          crossAxisCellCount: crossAxisCount, child: adWidget)
+                      ? StaggeredGridTile.fit(crossAxisCellCount: crossAxisCount, child: adWidget)
                       : StaggeredGridTile.count(
                           crossAxisCellCount: 1,
                           mainAxisCellCount: itemMainAspectRatio! * 1,

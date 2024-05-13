@@ -1,6 +1,6 @@
 name: ad_gridview
 description: "A flutter widget to easily show Native Ad or any other Widget in Between a GridView."
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/RajNarola29/ad_gridview.git
 environment:
   sdk: '>=3.2.5 <4.0.0'

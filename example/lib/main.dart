@@ -29,7 +29,38 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+  List list = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +69,10 @@ class _HomepageState extends State<Homepage> {
       body: AdGridView(
         crossAxisCount: 4,
         itemCount: list.length,
-        adIndex: 1,
-        adGridViewType: AdGridViewType.once,
+        adIndex: 2,
         itemMainAspectRatio: 1 / 1,
         adWidget: Container(
-          height: 250,
+          height: 150,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           color: Colors.blue,
           child: const Center(
