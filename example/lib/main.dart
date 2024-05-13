@@ -69,6 +69,7 @@ class _HomepageState extends State<Homepage> {
       body: AdGridView(
         crossAxisCount: 4,
         itemCount: list.length,
+        adGridViewType: AdGridViewType.once,
         adIndex: 2,
         itemMainAspectRatio: 1 / 1,
         adWidget: Container(
